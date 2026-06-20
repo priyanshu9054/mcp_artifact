@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 from dotenv import load_dotenv
 from fastmcp import FastMCP
 from fastmcp.server.auth.providers.google import GoogleProvider
+from prefect import flow
 
 # Load environment variables from .env file
 load_dotenv()
@@ -105,6 +106,18 @@ def add(a: int, b: int) -> int:
     """Add two numbers"""
     return a + b
 
+
+@flow
+def run_mcp():
+    transport = os.getenv("FASTMCP_TRANSPORT", "sse")
+    host = os.getenv("FASTMCP_HOST", "0.0.0.0")
+    port = int(os.getenv("FASTMCP_PORT", "8000"))
+
+    mcp.run(
+        transport=transport,
+        host=host,
+        port=port
+    )
 
 if __name__ == "__main__":
     # Support specifying transport via environment variable (default to "sse" as requested)

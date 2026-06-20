@@ -6,4 +6,6 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastmcp>=3.3.1",
+    "prefect>=3.7.5",
+    "prefect-cloud>=0.1.11",
 ]
